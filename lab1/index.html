@@ -14,63 +14,67 @@
         <button id="cartButton">Cart</button>
       </nav>
     </header>
-    <main>
-      <section id="searchSection">
-        <h2>Search for books</h2>
-        <form id="searchForm">
-          <div>
-            <label for="searchTitle">Name:</label>
-            <input type="text" id="searchTitle" name="searchTitle" />
-          </div>
+    <div class="container">
+      <main>
+        <section id="searchSection">
+          <h2>Search for books</h2>
+          <form id="searchForm">
+            <div>
+              <label for="searchTitle">Name:</label>
+              <input type="text" id="searchTitle" name="searchTitle" />
+            </div>
 
-          <div>
-            <label for="searchAuthor">Author:</label>
-            <input type="text" id="searchAuthor" name="searchAuthor" />
-          </div>
+            <div>
+              <label for="searchAuthor">Author:</label>
+              <input type="text" id="searchAuthor" name="searchAuthor" />
+            </div>
 
-          <fieldset>
-            <legend>Cover</legend>
-            <label>
-              <input type="checkbox" name="coverType" value="hard" />
-              Hard
-            </label>
-            <label>
-              <input type="checkbox" name="coverType" value="soft" />
-              Soft
-            </label>
-          </fieldset>
+            <fieldset>
+              <legend>Cover</legend>
+              <label>
+                <input type="checkbox" name="coverType" value="hard" />
+                Hard
+              </label>
+              <label>
+                <input type="checkbox" name="coverType" value="soft" />
+                Soft
+              </label>
+            </fieldset>
 
-          <div>
-            <label for="minPages">Min. number of pages:</label>
-            <input type="number" id="minPages" name="minPages" />
-          </div>
-          <div>
-            <label for="maxPages">Max. number of pages:</label>
-            <input type="number" id="maxPages" name="maxPages" />
-          </div>
+            <div>
+              <label for="minPages">Min. number of pages:</label>
+              <input type="number" id="minPages" name="minPages" />
+            </div>
+            <div>
+              <label for="maxPages">Max. number of pages:</label>
+              <input type="number" id="maxPages" name="maxPages" />
+            </div>
 
-          <div>
-            <label for="searchDescription">Word in description:</label>
-            <input
-              type="text"
-              id="searchDescription"
-              name="searchDescription"
-            />
-          </div>
+            <div>
+              <label for="searchDescription">Word in description:</label>
+              <input
+                type="text"
+                id="searchDescription"
+                name="searchDescription"
+              />
+            </div>
 
-          <button type="submit">Search</button>
-        </form>
-      </section>
-      <section id="resultSection">
-        <h2>List of available books</h2>
-        <ul>
-          <li>"Wszystko rozpada sie", Chinua Achebe, hard cover, 200 pages</li>
-          <li>"Umilowana", Toni Morrison, soft cover, 150 pages</li>
-        </ul>
-      </section>
-      <section>
-        <button id="addNewBook">Add New Book</button>
-      </section>
-    </main>
+            <button type="submit">Search</button>
+          </form>
+        </section>
+        <section id="resultSection">
+          <h2>List of available books</h2>
+          <ul>
+            <li>
+              "Wszystko rozpada sie", Chinua Achebe, hard cover, 200 pages
+            </li>
+            <li>"Umilowana", Toni Morrison, soft cover, 150 pages</li>
+          </ul>
+        </section>
+        <section>
+          <button id="addNewBook">Add New Book</button>
+        </section>
+      </main>
+    </div>
   </body>
 </html>
