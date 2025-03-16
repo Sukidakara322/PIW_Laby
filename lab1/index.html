@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apple Worm - Main Page</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Apple Worm</h1>
+      <nav>
+        <button id="loginButton">Log in / Log out</button>
+        <button id="cartButton">Cart</button>
+      </nav>
+    </header>
+    <main>
+      <section id="searchSection">
+        <h2>Search for books</h2>
+        <form id="searchForm">
+          <label for="searchInput">Name or Author:</label>
+          <input type="text" id="searchInput" name="SearchInput" />
+
+          <label>
+            <input type="checkbox" name="hardCoverOnly" />
+            Hard Cover
+          </label>
+
+          <button type="submit">Search</button>
+        </form>
+      </section>
+      <section id="resultSection">
+        <h2>List of available books</h2>
+        <div id="booksList"></div>
+      </section>
+      <section>
+        <button id="addNewBook">Add New Book</button>
+      </section>
+    </main>
+  </body>
+</html>
