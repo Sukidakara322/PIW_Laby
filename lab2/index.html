@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToDo List</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>ToDo Multiple Lists</h1>
+
+      <div class="list-controls">
+        <select id="listSelector"></select>
+        <input type="text" id="newListName" placeholder="Add a name to list" />
+        <button id="createListButton">Create List</button>
+      </div>
+
+      <div class="task-controls">
+        <input
+          type="text"
+          id="taskInput"
+          placeholder="Add a task to the list"
+        />
+        <select id="prioritySelector">
+          <option value="low">Low Priority</option>
+          <option value="medium">Mefium Priority</option>
+          <option value="high">High Priority</option>
+        </select>
+        <button id="addTaskButton">Add Task</button>
+      </div>
+
+      <ul id="taskList"></ul>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
