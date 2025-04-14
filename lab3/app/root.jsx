@@ -6,8 +6,11 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
+import NavBar from "./Components/NavBar";
+import Footer from "./Components/Footer";
 
 import stylesheet from "./app.css?url";
+import { LibraryProvider } from "./Contexts/LibraryContext";
 
 export const links = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -23,6 +26,13 @@ export const links = () => [
   { rel: "stylesheet", href: stylesheet },
 ];
 
+export function meta() {
+  return [
+    { title: "Apple Worm 2.0 - Library" },
+    { name: "description", content: "Main page for searching the books" },
+  ];
+}
+
 export function Layout({ children }) {
   return (
     <html lang="en">
@@ -33,7 +43,9 @@ export function Layout({ children }) {
         <Links />
       </head>
       <body>
-        {children}
+        <NavBar />
+        <main>{children}</main>
+        <Footer />
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -42,7 +54,11 @@ export function Layout({ children }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <LibraryProvider>
+      <Outlet />
+    </LibraryProvider>
+  );
 }
 
 export function ErrorBoundary({ error }) {

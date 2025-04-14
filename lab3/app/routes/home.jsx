@@ -1,12 +1,19 @@
-import { Welcome } from "../welcome/welcome";
+import BookSearch from "../Components/BookSearch";
+import BookList from "../Components/BookList";
 
 export function meta() {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "Apple Worm 2.0 - Library" },
+    { name: "description", content: "Main page for searching the books" },
   ];
 }
 
 export default function Home() {
-  return <Welcome />;
+  return (
+    <div>
+      <h1>Apple Worm 2.0 - Library</h1>
+      <BookSearch />
+      <BookList />
+    </div>
+  );
 }
