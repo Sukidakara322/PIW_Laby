@@ -10,10 +10,10 @@ Aplikacja została wyhostowana przy użyciu **Firebase Hosting**, z wykorzystani
 
 ## Funkcjonalności zgodne z wymaganiami Lab 3+1
 
-- ✅ 3.0 – Dane o wszystkich książkach są pobierane z bazy danych Firestore.
-- ✅ + Użytkownik zalogowany kontem Google ma przycisk "MOJE", który umożliwia filtrowanie książek dodanych przez siebie.
-- ✅ 4.0 – Użytkownik może dodać, edytować lub usunąć książki, których jest właścicielem.
-- ✅ 4.5 – W trakcie edytowania książki nie dochodzi do pełnego ponownego renderowania strony.
+- 3.0 – Dane o wszystkich książkach są pobierane z bazy danych Firestore.
+  Użytkownik zalogowany kontem Google ma przycisk "MOJE", który umożliwia filtrowanie książek dodanych przez siebie.
+- 4.0 – Użytkownik może dodać, edytować lub usunąć książki, których jest właścicielem.
+- 4.5 – W trakcie edytowania książki nie dochodzi do pełnego ponownego renderowania strony.
 
 ## Użyte technologie
 
