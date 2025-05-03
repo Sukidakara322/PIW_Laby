@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { LibraryContext } from "../Contexts/LibraryContext";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 export function meta() {
   return [
