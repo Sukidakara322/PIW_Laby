@@ -14,7 +14,6 @@ export const LibraryProvider = ({ children }) => {
   const [minPagesFilter, setMinPagesFilter] = useState("");
   const [maxPagesFilter, setMaxPagesFilter] = useState("");
   const [descFilter, setDescFilter] = useState("");
-
   const [showOnlyMine, setShowOnlyMine] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -26,21 +25,21 @@ export const LibraryProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    const fetchBooks = async () => {
-      try {
-        const snapshot = await getDocs(collection(db, "books"));
-        const books = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setBookList(books);
-      } catch (error) {
-        console.error("Error fetching books from Firestore:", error);
-      }
-    };
-
-    fetchBooks();
+    refreshBooks();
   }, []);
+
+  const refreshBooks = async () => {
+    try {
+      const snapshot = await getDocs(collection(db, "books"));
+      const books = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setBookList(books);
+    } catch (error) {
+      console.error("Error fetching books from Firestore:", error);
+    }
+  };
 
   const filteredBooks = bookList.filter((book) => {
     if (showOnlyMine && currentUser && book.owner !== currentUser.uid) {
@@ -92,6 +91,7 @@ export const LibraryProvider = ({ children }) => {
       value={{
         bookList: filteredBooks,
         setBookList,
+        refreshBooks,
         titleFilter,
         setTitleFilter,
         authorFilter,

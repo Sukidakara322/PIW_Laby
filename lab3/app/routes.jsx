@@ -3,6 +3,7 @@ import App from "./root";
 import Home from "./routes/home";
 import NewBook from "./routes/new";
 import Login from "./routes/login";
+import EditBook from "./Components/EditBook";
 
 const router = createBrowserRouter([
   {
@@ -12,6 +13,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "new", element: <NewBook /> },
       { path: "login", element: <Login /> },
+      { path: "edit/:id", element: <EditBook /> },
     ],
   },
 ]);

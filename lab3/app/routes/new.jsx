@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { LibraryContext } from "../Contexts/LibraryContext";
 import { useNavigate } from "react-router-dom";
 import { addDoc, collection } from "firebase/firestore";
-import { auth, db } from "../firebase"; // dodane importy
+import { auth, db } from "../firebase";
 
 export function meta() {
   return [
@@ -12,8 +12,7 @@ export function meta() {
 }
 
 export default function NewBook() {
-  const { setBookList } = useContext(LibraryContext);
-
+  const { refreshBooks } = useContext(LibraryContext);
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [cover, setCover] = useState("hard");
@@ -42,7 +41,7 @@ export default function NewBook() {
 
     try {
       await addDoc(collection(db, "books"), newBook);
-      setBookList((prev) => [...prev, newBook]);
+      await refreshBooks();
       navigate("/");
     } catch (error) {
       console.error("Error adding book:", error);
