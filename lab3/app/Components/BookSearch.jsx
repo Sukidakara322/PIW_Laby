@@ -17,6 +17,9 @@ export default function BookSearch() {
     setMaxPagesFilter,
     descFilter,
     setDescFilter,
+    showOnlyMine,
+    setShowOnlyMine,
+    currentUser,
   } = useContext(LibraryContext);
 
   return (
@@ -92,6 +95,19 @@ export default function BookSearch() {
           onChange={(e) => setDescFilter(e.target.value)}
         />
       </div>
+
+      {currentUser && (
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              checked={showOnlyMine}
+              onChange={(e) => setShowOnlyMine(e.target.checked)}
+            />
+            Only my books
+          </label>
+        </div>
+      )}
     </form>
   );
 }

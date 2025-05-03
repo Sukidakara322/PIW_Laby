@@ -1,6 +1,8 @@
 import { useContext, useState } from "react";
 import { LibraryContext } from "../Contexts/LibraryContext";
 import { useNavigate } from "react-router-dom";
+import { addDoc, collection } from "firebase/firestore";
+import { auth, db } from "../firebase"; // dodane importy
 
 export function meta() {
   return [
@@ -10,7 +12,7 @@ export function meta() {
 }
 
 export default function NewBook() {
-  const { bookList, setBookList } = useContext(LibraryContext);
+  const { setBookList } = useContext(LibraryContext);
 
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -20,21 +22,32 @@ export default function NewBook() {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const user = auth.currentUser;
+    if (!user) {
+      alert("You must be logged in to add a book.");
+      return;
+    }
+
     const newBook = {
-      id: bookList.length + 1,
       title,
       author,
       cover,
       pages: parseInt(pages, 10) || 0,
       description,
+      owner: user.uid,
     };
 
-    setBookList((prevBooks) => [...prevBooks, newBook]);
-
-    navigate("/");
+    try {
+      await addDoc(collection(db, "books"), newBook);
+      setBookList((prev) => [...prev, newBook]);
+      navigate("/");
+    } catch (error) {
+      console.error("Error adding book:", error);
+      alert("Failed to add book. Check console for details.");
+    }
   };
 
   return (

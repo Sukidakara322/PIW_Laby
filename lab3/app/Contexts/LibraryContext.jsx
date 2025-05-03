@@ -1,76 +1,12 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
+import { db, auth } from "../firebase";
 
 export const LibraryContext = createContext();
 
 export const LibraryProvider = ({ children }) => {
-  const [bookList, setBookList] = useState([
-    {
-      id: 1,
-      title: "Fathers and Sons",
-      author: "Ivan Turgenev",
-      description: "A classic of Russian literature",
-      cover: "soft",
-      pages: 320,
-    },
-    {
-      id: 2,
-      title: "War and Peace",
-      author: "Leo Tolstoy",
-      description: "An epic historical novel",
-      cover: "hard",
-      pages: 1200,
-    },
-    {
-      id: 3,
-      title: "Things Fall Apart",
-      author: "Chinua Achebe",
-      description: "A novel about pre-colonial life in Nigeria",
-      cover: "hard",
-      pages: 200,
-    },
-    {
-      id: 4,
-      title: "Beloved",
-      author: "Toni Morrison",
-      description: "A novel set in the aftermath of the American Civil War",
-      cover: "soft",
-      pages: 330,
-    },
-    {
-      id: 5,
-      title: "The Great Gatsby",
-      author: "F. Scott Fitzgerald",
-      description: "A story about the Jazz Age in the United States",
-      cover: "soft",
-      pages: 180,
-    },
-    {
-      id: 6,
-      title: "1984",
-      author: "George Orwell",
-      description: "A dystopian social science fiction novel",
-      cover: "hard",
-      pages: 350,
-    },
-    {
-      id: 7,
-      title: "Pride and Prejudice",
-      author: "Jane Austen",
-      description: "A romantic novel of manners",
-      cover: "soft",
-      pages: 275,
-    },
-    {
-      id: 8,
-      title: "Moby-Dick",
-      author: "Herman Melville",
-      description:
-        "A sailor's narrative of the obsessive quest for the white whale",
-      cover: "hard",
-      pages: 585,
-    },
-  ]);
-
+  const [bookList, setBookList] = useState([]);
   const [titleFilter, setTitleFilter] = useState("");
   const [authorFilter, setAuthorFilter] = useState("");
   const [hardCoverFilter, setHardCoverFilter] = useState(false);
@@ -79,7 +15,38 @@ export const LibraryProvider = ({ children }) => {
   const [maxPagesFilter, setMaxPagesFilter] = useState("");
   const [descFilter, setDescFilter] = useState("");
 
+  const [showOnlyMine, setShowOnlyMine] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const snapshot = await getDocs(collection(db, "books"));
+        const books = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setBookList(books);
+      } catch (error) {
+        console.error("Error fetching books from Firestore:", error);
+      }
+    };
+
+    fetchBooks();
+  }, []);
+
   const filteredBooks = bookList.filter((book) => {
+    if (showOnlyMine && currentUser && book.owner !== currentUser.uid) {
+      return false;
+    }
+
     if (
       titleFilter &&
       !book.title.toLowerCase().includes(titleFilter.toLowerCase())
@@ -97,6 +64,7 @@ export const LibraryProvider = ({ children }) => {
     if (hardCoverFilter && !softCoverFilter && book.cover !== "hard") {
       return false;
     }
+
     if (softCoverFilter && !hardCoverFilter && book.cover !== "soft") {
       return false;
     }
@@ -138,6 +106,9 @@ export const LibraryProvider = ({ children }) => {
         setMaxPagesFilter,
         descFilter,
         setDescFilter,
+        showOnlyMine,
+        setShowOnlyMine,
+        currentUser,
       }}
     >
       {children}
