@@ -2,16 +2,19 @@ import { Outlet, useRouteError, isRouteErrorResponse } from "react-router-dom";
 import NavBar from "./Components/NavBar";
 import Footer from "./Components/Footer";
 import { LibraryProvider } from "./Contexts/LibraryContext";
+import { FavoritesProvider } from "./Contexts/FavoritesContext";
 import "./app.css";
 
 export default function App() {
   return (
     <LibraryProvider>
-      <NavBar />
-      <main className="pt-16 p-4 container mx-auto">
-        <Outlet />
-      </main>
-      <Footer />
+      <FavoritesProvider>
+        <NavBar />
+        <main className="pt-16 p-4 container mx-auto">
+          <Outlet />
+        </main>
+        <Footer />
+      </FavoritesProvider>
     </LibraryProvider>
   );
 }
